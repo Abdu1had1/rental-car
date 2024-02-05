@@ -30,18 +30,18 @@ function setupSwagger(nestApp: INestApplication): void {
 
   const document = SwaggerModule.createDocument(nestApp, options);
   SwaggerModule.setup('/swagger', nestApp, document,{
-    customSiteTitle: 'Samlple',
+    customSiteTitle: 'car rental',
     swaggerOptions:{
       docExpansion: 'none',
       operationSorter: 'alpha',
       tagSorter: 'alpha',
+      
     },
   });
 }
 
 async function bootstrap(): Promise<Handler> {
   const app = await NestFactory.create(AppModule);
-  app.use(express.static(path.join(__dirname, '..', 'public')));
   app.enableCors({
     origin: '*', // You might want to specify the actual origin(s) here
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
