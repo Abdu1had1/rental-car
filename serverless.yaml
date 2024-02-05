@@ -25,6 +25,7 @@ functions:
 
 plugins:
   - serverless-offline
+  - serverless-jetpack
 
 custom:
   serverless-offline:

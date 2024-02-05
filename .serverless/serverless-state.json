@@ -174,13 +174,13 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/rental-car/dev/1707132203430-2024-02-05T11:23:23.430Z/swaggerUi.zip"
+                "S3Key": "serverless/rental-car/dev/1707137315378-2024-02-05T12:48:35.378Z/swaggerUi.zip"
               },
               "Handler": "dist/main.handler",
               "Runtime": "nodejs18.x",
               "FunctionName": "rental-car-dev-swaggerUi",
               "MemorySize": 1024,
-              "Timeout": 6,
+              "Timeout": 30,
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -192,14 +192,14 @@
               "SwaggerUiLogGroup"
             ]
           },
-          "SwaggerUiLambdaVersion3SgTQ2XgFbUXVIiefxHXnqF45ASTGxJ6T3DTPNE8Hmk": {
+          "SwaggerUiLambdaVersion1JRMfkwzItZjlpkc74G7ubQ7vcXD5MI4pmweB3ajhg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SwaggerUiLambdaFunction"
               },
-              "CodeSha256": "muY+b5jCJ3430ebG2R20LEP7KDh59UBBEionwXjWbks="
+              "CodeSha256": "KDzuV3SPQhSqeYMhTSFY2RBIJLGmNYYPxERJ56r/z7Y="
             }
           },
           "ApiGatewayRestApi": {
@@ -241,7 +241,7 @@
               }
             }
           },
-          "ApiGatewayResourceSwagger": {
+          "ApiGatewayResourceProxyVar": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
@@ -250,13 +250,13 @@
                   "RootResourceId"
                 ]
               },
-              "PathPart": "swagger",
+              "PathPart": "{proxy+}",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodSwaggerOptions": {
+          "ApiGatewayMethodApiProxyVarOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "AuthorizationType": "NONE",
@@ -294,7 +294,52 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceSwagger"
+                "Ref": "ApiGatewayResourceApiProxyVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodProxyVarOptions": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "AuthorizationType": "NONE",
+              "HttpMethod": "OPTIONS",
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseParameters": {
+                    "method.response.header.Access-Control-Allow-Origin": true,
+                    "method.response.header.Access-Control-Allow-Headers": true,
+                    "method.response.header.Access-Control-Allow-Methods": true
+                  },
+                  "ResponseModels": {}
+                }
+              ],
+              "RequestParameters": {},
+              "Integration": {
+                "Type": "MOCK",
+                "RequestTemplates": {
+                  "application/json": "{statusCode:200}"
+                },
+                "ContentHandling": "CONVERT_TO_TEXT",
+                "IntegrationResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": "'*'",
+                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE,GET,HEAD,PATCH,POST,PUT'"
+                    },
+                    "ResponseTemplates": {
+                      "application/json": ""
+                    }
+                  }
+                ]
+              },
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceProxyVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -347,13 +392,13 @@
               "SwaggerUiLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayMethodSwaggerAny": {
+          "ApiGatewayMethodProxyVarAny": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "ANY",
               "RequestParameters": {},
               "ResourceId": {
-                "Ref": "ApiGatewayResourceSwagger"
+                "Ref": "ApiGatewayResourceProxyVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -393,7 +438,7 @@
               "SwaggerUiLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1707132099028": {
+          "ApiGatewayDeployment1707137245070": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -402,9 +447,10 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodSwaggerOptions",
+              "ApiGatewayMethodApiProxyVarOptions",
+              "ApiGatewayMethodProxyVarOptions",
               "ApiGatewayMethodApiProxyVarAny",
-              "ApiGatewayMethodSwaggerAny"
+              "ApiGatewayMethodProxyVarAny"
             ]
           },
           "SwaggerUiLambdaPermissionApiGateway": {
@@ -443,9 +489,6 @@
                 ]
               }
             }
-          },
-          "telepoem": {
-            "Type": "AWS::SNS::Topic"
           }
         },
         "Outputs": {
@@ -460,7 +503,7 @@
           "SwaggerUiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SwaggerUiLambdaVersion3SgTQ2XgFbUXVIiefxHXnqF45ASTGxJ6T3DTPNE8Hmk"
+              "Ref": "SwaggerUiLambdaVersion1JRMfkwzItZjlpkc74G7ubQ7vcXD5MI4pmweB3ajhg"
             },
             "Export": {
               "Name": "sls-rental-car-dev-SwaggerUiLambdaFunctionQualifiedArn"
@@ -581,26 +624,50 @@
     "custom": {
       "serverless-offline": {
         "httpPort": 3000
+      },
+      "optimize": {
+        "external": [
+          "swagger-ui-dist"
+        ]
       }
     },
     "plugins": [
-      "serverless-offline"
+      "serverless-offline",
+      "serverless-jetpack"
     ],
     "pluginsData": {},
     "functions": {
       "swaggerUi": {
         "handler": "dist/main.handler",
+        "timeout": 30,
         "events": [
           {
             "http": {
               "path": "api/{proxy+}",
               "method": "any",
+              "cors": {
+                "origin": "*",
+                "methods": [
+                  "OPTIONS",
+                  "ANY"
+                ],
+                "headers": [
+                  "Content-Type",
+                  "X-Amz-Date",
+                  "Authorization",
+                  "X-Api-Key",
+                  "X-Amz-Security-Token",
+                  "X-Amz-User-Agent",
+                  "X-Amzn-Trace-Id"
+                ],
+                "allowCredentials": false
+              },
               "integration": "AWS_PROXY"
             }
           },
           {
             "http": {
-              "path": "swagger",
+              "path": "{proxy+}",
               "method": "any",
               "cors": {
                 "origin": "*",
@@ -626,22 +693,13 @@
         ],
         "name": "rental-car-dev-swaggerUi",
         "package": {
-          "artifact": "D:\\Projects\\NestJs\\rental-car\\.serverless\\swaggerUi.zip"
+          "artifact": ".serverless\\swaggerUi.zip"
         },
         "memory": 1024,
-        "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "SwaggerUiLambdaVersion3SgTQ2XgFbUXVIiefxHXnqF45ASTGxJ6T3DTPNE8Hmk"
+        "versionLogicalId": "SwaggerUiLambdaVersion1JRMfkwzItZjlpkc74G7ubQ7vcXD5MI4pmweB3ajhg"
       }
-    },
-    "resources": {
-      "Resources": {
-        "telepoem": {
-          "Type": "AWS::SNS::Topic"
-        }
-      },
-      "Outputs": {}
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless.yaml",
@@ -659,9 +717,6 @@
       "custom": {
         "$ref": "$[\"service\"][\"custom\"]"
       },
-      "resources": {
-        "$ref": "$[\"service\"][\"resources\"]"
-      },
       "package": {
         "individually": true,
         "excludeDevDependencies": true,
@@ -671,7 +726,7 @@
           "README.md"
         ],
         "artifactsS3KeyDirname": "serverless/rental-car/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/rental-car/dev/1707132203430-2024-02-05T11:23:23.430Z"
+        "artifactDirectoryName": "serverless/rental-car/dev/1707137315378-2024-02-05T12:48:35.378Z"
       }
     },
     "layers": {},
@@ -679,7 +734,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/rental-car/dev/1707132203430-2024-02-05T11:23:23.430Z",
+    "artifactDirectoryName": "serverless/rental-car/dev/1707137315378-2024-02-05T12:48:35.378Z",
     "artifact": ""
   }
 }
