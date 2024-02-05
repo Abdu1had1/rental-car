@@ -1,0 +1,30 @@
+service: car-api
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-jetpack
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+  optimize:
+    external: ['swagger-ui-dist']
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-north-1 
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - httpApi:
+          path: "/customers/{proxy+}"
+          method: any
+      - httpApi: # Swagger UI endpoint
+          path: "/swagger/"
+          method: any
+          
