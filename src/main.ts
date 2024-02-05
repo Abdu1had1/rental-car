@@ -35,19 +35,19 @@ function setupSwagger(nestApp: INestApplication): void {
       docExpansion: 'none',
       operationSorter: 'alpha',
       tagSorter: 'alpha',
-      
+
     },
   });
 }
 
 async function bootstrap(): Promise<Handler> {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: '*', // You might want to specify the actual origin(s) here
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204,
-  });
+  // app.enableCors({
+  //   origin: '*', // You might want to specify the actual origin(s) here
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   credentials: true,
+  //   optionsSuccessStatus: 204,
+  // });
 
   setupSwagger(app);
   await app.init();
