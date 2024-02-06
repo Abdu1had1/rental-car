@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ReservesService } from './reserves.service';
 import { CreateReserveDto } from './dto/create-reserve.dto';
 import { UpdateReserveDto } from './dto/update-reserve.dto';
 import { ApiResponse, ApiBadRequestResponse, ApiBearerAuth, ApiTags, ApiSecurity } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiBearerAuth()
 @Controller('reserves')
 @ApiTags("Reserves")
 @ApiSecurity("JWT-auth")
+@UseGuards(AuthGuard)
 
 
 export class ReservesController {
