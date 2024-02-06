@@ -174,7 +174,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/rental-car/dev/1707137315378-2024-02-05T12:48:35.378Z/swaggerUi.zip"
+                "S3Key": "serverless/rental-car/dev/1707205979688-2024-02-06T07:52:59.688Z/swaggerUi.zip"
               },
               "Handler": "dist/main.handler",
               "Runtime": "nodejs18.x",
@@ -192,14 +192,14 @@
               "SwaggerUiLogGroup"
             ]
           },
-          "SwaggerUiLambdaVersion1JRMfkwzItZjlpkc74G7ubQ7vcXD5MI4pmweB3ajhg": {
+          "SwaggerUiLambdaVersionrigcS8XvqxqzqteGGGrLNcrsbtkWRDCFcsr9EJcI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SwaggerUiLambdaFunction"
               },
-              "CodeSha256": "KDzuV3SPQhSqeYMhTSFY2RBIJLGmNYYPxERJ56r/z7Y="
+              "CodeSha256": "9ptLXbnPW3DtTH///+Ftdt3mRM+s/2r2g/R+gCZbVRM="
             }
           },
           "ApiGatewayRestApi": {
@@ -438,7 +438,7 @@
               "SwaggerUiLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1707137245070": {
+          "ApiGatewayDeployment1707205905673": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -503,7 +503,7 @@
           "SwaggerUiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SwaggerUiLambdaVersion1JRMfkwzItZjlpkc74G7ubQ7vcXD5MI4pmweB3ajhg"
+              "Ref": "SwaggerUiLambdaVersionrigcS8XvqxqzqteGGGrLNcrsbtkWRDCFcsr9EJcI"
             },
             "Export": {
               "Name": "sls-rental-car-dev-SwaggerUiLambdaFunctionQualifiedArn"
@@ -698,7 +698,7 @@
         "memory": 1024,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "SwaggerUiLambdaVersion1JRMfkwzItZjlpkc74G7ubQ7vcXD5MI4pmweB3ajhg"
+        "versionLogicalId": "SwaggerUiLambdaVersionrigcS8XvqxqzqteGGGrLNcrsbtkWRDCFcsr9EJcI"
       }
     },
     "configValidationMode": "warn",
@@ -726,7 +726,7 @@
           "README.md"
         ],
         "artifactsS3KeyDirname": "serverless/rental-car/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/rental-car/dev/1707137315378-2024-02-05T12:48:35.378Z"
+        "artifactDirectoryName": "serverless/rental-car/dev/1707205979688-2024-02-06T07:52:59.688Z"
       }
     },
     "layers": {},
@@ -734,7 +734,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/rental-car/dev/1707137315378-2024-02-05T12:48:35.378Z",
+    "artifactDirectoryName": "serverless/rental-car/dev/1707205979688-2024-02-06T07:52:59.688Z",
     "artifact": ""
   }
 }
