@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, SetMetadata } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOperation, ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateCustomerDto } from 'src/customers/dtos/CreateCustomer.dto';
 import { LoginCustomerDto } from 'src/customers/dtos/LoginCustomer.dto';
 import { UpdateCustomerDto } from 'src/customers/dtos/UpdateCustomer.dto';
@@ -10,6 +11,7 @@ import { Public } from 'src/public.decorator';
 @Controller('customers')
 @ApiTags("Customers")
 @ApiSecurity("JWT-auth")
+@UseGuards(AuthGuard)
 export class CustomersController {
   constructor(private customerService: CustomersService) {}
 

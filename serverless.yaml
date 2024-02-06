@@ -21,11 +21,9 @@ functions:
           cors: true
           authorizer: null
 
-
-
 plugins:
   - serverless-offline
-  - serverless-jetpack
+  - serverless-jetpack 
 
 custom:
   serverless-offline:
