@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiProperty, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { CarsService } from './cars.service';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiBearerAuth()
 @Controller('cars')
 @ApiTags("Cars")
+@UseGuards(AuthGuard)
+
 @ApiSecurity("JWT-auth")
 
 export class CarsController {

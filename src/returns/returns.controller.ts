@@ -1,14 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ReturnsService } from './returns.service';
 import { CreateReturnDto } from './dto/create-return.dto';
 import { UpdateReturnDto } from './dto/update-return.dto';
 import { ApiResponse, ApiBadRequestResponse, ApiBearerAuth, ApiTags, ApiSecurity } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 
 @ApiBearerAuth()
 @Controller('returns')
 @ApiTags("Returns")
 @ApiSecurity("JWT-auth")
+@UseGuards(AuthGuard)
 
 
 export class ReturnsController {
